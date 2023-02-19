@@ -25,6 +25,7 @@ public class TestService implements Service {
                       .map(s -> s.replace('a', 'z')) // replacing only one character for simplicity
                       .map(DataChunks::create);
         });
+        req.next();
     }
 
     private void post(ServerRequest req, ServerResponse res) {
