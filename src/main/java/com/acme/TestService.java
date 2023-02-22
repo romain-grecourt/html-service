@@ -19,7 +19,7 @@ public class TestService implements Service {
     private void filter(ServerRequest req, ServerResponse res) {
         req.content().registerFilter(publisher -> {
             UTF8Decoder utf8Decoder = new UTF8Decoder();
-            return req.content()
+            return Multi.create(publisher)
                       .flatMap(Multi::just, 1, true, 1) // throttle one-by-one
                       .map(release(utf8Decoder::decode)) // decode whole utf-8 characters
                       .map(s -> s.replace('a', 'z')) // replacing only one character for simplicity
